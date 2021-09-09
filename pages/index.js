@@ -167,6 +167,13 @@ const Home = (props) => (
             <button>Hello amp-script!</button>
           </AmpScript>
 
+          <AmpScript
+            layout="container"
+            src="https://tracker.factoreal.com/ftreal.js"
+          >
+            <button>Hello amp-script!</button>
+          </AmpScript>
+
           <p>
             The helper also supports embedding inline scripts. Good to know:
             Next.js uses{" "}
