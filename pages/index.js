@@ -199,6 +199,38 @@ const Home = (props) => (
           >
             <button>Hello amp-script!</button>
           </AmpScript>
+
+          <amp-script
+            layout="fixed-height"
+            height="100"
+            id="dataFunctions"
+            script="fetch-data-script"
+          ></amp-script>
+
+          <script>
+            function fetchData(){" "}
+            {(function test() {
+              (a = document.createElement("script")),
+                (m = document.getElementsByTagName("script")[0]),
+                (a.async = 0),
+                (a.src =
+                  "https://optimus-tracker.factoreal.info/ftreal.min.js"),
+                (a.onload = function () {
+                  ftreal.init("21b17bb0-ff23-11eb-b9f8-5fb768b5a2d8");
+                }),
+                m.parentNode.insertBefore(a, m);
+            })()}
+            exportFunction("fetchData", fetchData);
+          </script>
+
+          <amp-list
+            id="amp-list"
+            width="auto"
+            height="100"
+            layout="fixed-height"
+            src="amp-script:dataFunctions.fetchData"
+            template="myTemplate"
+          ></amp-list>
         </section>
       </main>
     </Layout>
