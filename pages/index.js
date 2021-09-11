@@ -5,11 +5,19 @@ import {
   AmpIncludeAmpList,
   AmpIncludeAmpCarousel,
 } from "../components/amp/AmpCustomElement";
+import Head from "next/head";
 
 export const config = { amp: true };
 
 const Home = (props) => (
   <>
+    <Head>
+      <title>Layouts Example</title>
+      <meta
+        name="amp-script-src"
+        content="sha384-YCFs8k-ouELcBTgzKzNAujZFxygwiqimSqKK7JqeKaGNflwDxaC3g2toj7s_kxWG"
+      />
+    </Head>
     <Layout
       title="Welcome to AMP"
       description="Learn how to build an AMP First with Next.js."
@@ -161,13 +169,7 @@ const Home = (props) => (
           </AmpScript>
 
           <AmpScript
-            layout="container"
-            src="https://optimus-tracker.factoreal.info/ftreal.min.js"
-          >
-            <button>Hello amp-script!</button>
-          </AmpScript>
-
-          <AmpScript
+            id="ft-script"
             layout="container"
             src="https://tracker.factoreal.com/ftreal.js"
           >
@@ -192,45 +194,30 @@ const Home = (props) => (
             layout="fixed-height"
             height="64"
             script="
-              const btn = document.querySelector('button');
-              btn.addEventListener('click', () => {
-                document.body.textContent = 'Hello World!'
-              })"
+            window.onload = function () {
+              let script = document.createElement('script');
+              script.type = 'text/javascript';
+              script.async = false;
+              script.src = 'https://d1-tracker.factoreal.info/ftreal.js';
+          
+              document.body.appendChild(script);
+          
+              console.log('getScript executed');
+              script.onload = function () {
+                ftreal.init('2c22a410-03e3-11ec-a146-9998e7d7baff');
+              };
+            };
+            "
           >
-            <button>Hello amp-script!</button>
+            <button id="test">Hello script</button>
           </AmpScript>
 
-          <amp-script
+          <AmpScript
+            id="hello-world"
             layout="fixed-height"
-            height="100"
-            id="dataFunctions"
-            script="fetch-data-script"
-          ></amp-script>
-
-          <script>
-            function fetchData(){" "}
-            {(function test() {
-              (a = document.createElement("script")),
-                (m = document.getElementsByTagName("script")[0]),
-                (a.async = 0),
-                (a.src =
-                  "https://optimus-tracker.factoreal.info/ftreal.min.js"),
-                (a.onload = function () {
-                  ftreal.init("21b17bb0-ff23-11eb-b9f8-5fb768b5a2d8");
-                }),
-                m.parentNode.insertBefore(a, m);
-            })()}
-            exportFunction("fetchData", fetchData);
-          </script>
-
-          <amp-list
-            id="amp-list"
-            width="auto"
-            height="100"
-            layout="fixed-height"
-            src="amp-script:dataFunctions.fetchData"
-            template="myTemplate"
-          ></amp-list>
+            height="64"
+            script="https://d1-tracker.factoreal.info/ftreal.min.js"
+          ></AmpScript>
         </section>
       </main>
     </Layout>
